@@ -29,27 +29,40 @@
 
 class Solution {
     public int solution(int[] bandage, int health, int[][] attacks) {
-        int answer = health; // 초기 체력, 최종 체력
-        int t_b = bandage[0];
-        int x_b = bandage[1];
-        int y_b = bandage[2];
-        int[] t_atk; // 공격 시간의 집합
-        int[] d_atk; // 피해량의 집합
+        int answer = health; // 최대 체력
+        int t_b = bandage[0]; // 붕대 시전 시간
+        int x_b = bandage[1]; // 붕대 초당 회복량
+        int y_b = bandage[2]; // 붕대 추가 회복량 
+        int[] t_atk = new int[attacks.length]; // 몬스터 공격 시간의 집합
+        int[] d_atk = new int[attacks.length]; // 몬스터 피해량의 집합
         for(int i=0; i<attacks.length; i++){
-            int[] t_atk[i] = attacks[i][0];
-            int[] d_atk[i] = attacks[i][1];
-        }      
-        // 몬스터의 공격이 끝나면 연산 종료
-        // 체력이 0이하가 될 경우 연산 종료
-        // 1초 단위의 연산, 초마다 회복, 초마다 공격
-        for(int time=1; time<=t_atk[attacks.length-1]; i++)
-        {
-            // 회복 연산(공격이 아닐 경우 발동)
-            //(회복할 양이 있을때만 발동)
-            if(){
-                answer = 
+            t_atk[i] = attacks[i][0];
+            d_atk[i] = attacks[i][1];
+        }
+        int atk_counter = 0; // 몬스터 공격 카운터
+        int b_counter = 0; // 붕대 연속 성공 카운터 
+        
+        // 초 단위의 연산, 몬스터의 공격이 끝나면 연산 종료
+        for(int time=1; time<=t_atk[attacks.length-1]; time++)
+        {            
+            // 몬스터 공격 시
+            if(time == t_atk[atk_counter]){
+                answer -= d_atk[atk_counter]; // 피해 입음
+                atk_counter ++; // 어택 카운터 +1
+                b_counter = 0; // 붕대 카운터 초기화
+            }else { // 공격이 아닐 시 회복
+                b_counter += 1; // 붕대 카운터 +1
+                if(b_counter == t_b){ 
+                    answer += x_b + y_b; // 붕대 연속 성공 시 추가 회복
+                    b_counter = 0; // 붕대 카운터 초기화
+                }else{
+                    answer += x_b; // 붕대 기본 회복
+                }
+                if(answer > health) {answer = health;} // 회복량 초과시, 체력 초기화
             }
-            
+            if(answer <= 0) { // 체력 0 이하시, for문 탈출(연산 끝)
+                return -1;
+            }
         }
         return answer;
     }
