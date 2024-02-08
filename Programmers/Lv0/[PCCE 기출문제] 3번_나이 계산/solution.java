@@ -12,6 +12,9 @@
 // 1950 ≤ year ≤ 2030
 // age_type은 "Korea" 또는 "Year"만 주어집니다.
 
+// 빈칸 채우기는 이미 완성된 코드 중 빈칸에 알맞은 코드를 입력하는 문제 타입입니다.
+// 빈칸을 제외한 기본 코드는 수정할 수 없습니다.
+
 // import java.util.Scanner;
 
 // public class Solution {
@@ -50,3 +53,7 @@ public class Solution {
         System.out.println(answer);
     }
 }
+
+// 풀이
+// 조건문과 int 연산에 대한 문제이다.
+// 한국식 나이는 현재 연도 - 출생 연도 + 1 이다.

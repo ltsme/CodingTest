@@ -16,3 +16,7 @@ class Solution {
         return answer;
     }
 }
+
+// 풀이
+// 받은 정수형 값에 대해 %2 == 0 조건에 부합하면 "Even", 아니면 "Odd"
+// 삼항 조건문 (조건) ? 참 : 거짓

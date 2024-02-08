@@ -1,47 +1,93 @@
-// A반 학생들은 시험이 끝난 뒤 성적이 나오기 전 자기 시험지를 가채점해 보았습니다.
-// 이후에 선생님이 실제 성적을 불러 줄 때 가채점한 점수와 실제 성적이 다른 학생들이 있어 선생님께 문의를 하려고 합니다.
+// 선빈이는 게임을 즐기던 중 가지고 있는 물건이 너무 많아 창고 정리를 하기로 했습니다.
+// 선빈이가 보유한 게임 속 창고는 여러 칸으로 나누어져 있고 각 칸에는 물건들이 담겨있습니다.
+// 창고를 정리할 방법을 고민하던 선빈이는 같은 물건이 여러 칸에 나누어 들어있는 것을 발견하고
+// 우선 같은 물건끼리 최대한 겹쳐쌓는 방식으로 창고를 정리하기로 했습니다.
+// 선빈이의 창고에 들어있는 물건의 이름과 개수는 리스트 형태로 주어지며, 한 칸에 겹쳐질 수 있는 물건의 개수에는 제한이 없다고 가정합니다.
 
-// 성적을 문의하려는 학생들의 번호가 담긴 정수 리스트 numbers와 가채점한 점수가 성적을 문의하려는 학생 순서대로 담긴 정수 리스트 our_score,
-// 실제 성적이 번호 순서대로 담긴 정수 리스트 score_list가 주어집니다.
-// 주어진 solution 함수는 가채점한 점수가 실제 성적과 동일하다면 "Same"을, 다르다면 "Different"를 순서대로 리스트에 담아 return하는 함수입니다.
-// solution 함수가 올바르게 작동하도록 한 줄을 수정해 주세요.
+// 주어진 solution 함수는 정리되기 전 창고의 물건 이름이 담긴 문자열 리스트 storage와 각 물건의 개수가 담긴 정수 리스트 num이 주어질 때,
+// 정리된 창고에서 개수가 가장 많은 물건의 이름을 return 하는 함수입니다. solution 함수가 올바르게 작동하도록 한 줄을 수정해 주세요.
+
+// 예를 들어 창고의 각 칸에 담겨있는 물건의 이름이 storage = ["pencil", "pencil", "pencil", "book"],
+// 각 물건의 개수가 num = [2, 4, 3, 1]이라면 연필과 책을 한 칸에 각각 겹쳐 쌓아 간단하게
+// clean_storage = ["pencil", "book"], clean_num = [9, 1]로 만들 수 있습니다.
 
 // 디버깅(Debugging) 문제 안내
 // 디버깅(Debugging)은 이미 완성된 코드에서 버그를 찾아 수정하는 문제 타입입니다.
 // 1줄만 수정하여 버그를 고치세요.
 
 // class Solution {
-//     public String[] solution(int[] numbers, int[] our_score, int[] score_list) {
-//         int num_student = numbers.length;
-//         String[] answer = new String[num_student];
-
-//         for (int i = 0; i < num_student; i++) {
-//             if (our_score[i] == score_list[i]) {
-//                 answer[i] = "Same";
+//     public String solution(String[] storage, int[] num) {
+//         int num_item = 0;
+//         String[] clean_storage = new String[storage.length];
+//         int[] clean_num = new int[num.length];
+        
+//         for(int i=0; i<storage.length; i++){
+//             int clean_idx = -1;
+//             for(int j=0; j<num_item; j++){
+//                 if(storage[i].equals(clean_storage[j])){
+//                     clean_idx = j;
+//                     break;
+//                 }
 //             }
-//             else {
-//                 answer[i] = "Different";
+//             if(clean_idx == -1){
+//                 clean_storage[num_item] = Integer.toString(num[i]);
+//                 clean_num[num_item] = num[i];
+//                 num_item += 1;
+//             }
+//             else{
+//                 clean_num[clean_idx] += num[i];
 //             }
 //         }
-
+        
+//         // 아래 코드에는 틀린 부분이 없습니다.
+        
+//         int num_max = -1;
+//         String answer = "";
+//         for(int i=0; i<num_item; i++){
+//             if(clean_num[i] > num_max){
+//                 num_max = clean_num[i];
+//                 answer = clean_storage[i];
+//             }
+//         }
 //         return answer;
 //     }
 // }
 
 class Solution {
-    public String[] solution(int[] numbers, int[] our_score, int[] score_list) {
-        int num_student = numbers.length;
-        String[] answer = new String[num_student];
-
-        for (int i = 0; i < num_student; i++) {
-            if (our_score[i] == score_list[numbers[i]-1]) {
-                answer[i] = "Same";
+    public String solution(String[] storage, int[] num) {
+        int num_item = 0;
+        String[] clean_storage = new String[storage.length];
+        int[] clean_num = new int[num.length];
+        
+        for(int i=0; i<storage.length; i++){
+            int clean_idx = -1;
+            for(int j=0; j<num_item; j++){
+                if(storage[i].equals(clean_storage[j])){
+                    clean_idx = j;
+                    break;
+                }
             }
-            else {
-                answer[i] = "Different";
+            if(clean_idx == -1){
+                clean_storage[num_item] = storage[i];
+                clean_num[num_item] = num[i];
+                num_item += 1;
+            }
+            else{
+                clean_num[clean_idx] += num[i];
+            }
+        }        
+        // 아래 코드에는 틀린 부분이 없습니다.        
+        int num_max = -1;
+        String answer = "";
+        for(int i=0; i<num_item; i++){
+            if(clean_num[i] > num_max){
+                num_max = clean_num[i];
+                answer = clean_storage[i];
             }
         }
-
         return answer;
     }
 }
+
+// 풀이
+// 배열과 복합 for문을 이용한 문제이다.

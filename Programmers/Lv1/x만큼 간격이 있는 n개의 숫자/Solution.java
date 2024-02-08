@@ -16,19 +16,8 @@ class Solution {
     }
 }
 
-// 다른 사람의 풀이 1
 
-// import java.util.*;
-// class Solution {
-//     public static long[] solution(int x, int n) {
-//         long[] answer = new long[n];
-//         answer[0] = x;
-
-//         for (int i = 1; i < n; i++) {
-//             answer[i] = answer[i - 1] + x;
-//         }
-
-//         return answer;
-
-//     }
-// }
+// 풀이
+// x부터 시작해, x만큼 커지는 배열을 만들어내야 하므로,
+// i=0 일 때 x / i=1 일 때 x + x가 나올 수 있도록
+// x + x(i) i는 0부터 시작

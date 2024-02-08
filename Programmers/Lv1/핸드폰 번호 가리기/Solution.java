@@ -18,3 +18,8 @@ class Solution {
         return answer;
     }
 }
+
+// 풀이
+// 문자열에 대해 .substring(A,B)에 의해 A에서 B까지의 값만 보존된다. (잘라져 보관)
+// 따라서 .length()-4 , .length()에 의해 끝에서 4번째 까지 문자열이 보존된다.
+// 이후 0에서 부터 .length()-4 까지의 값은 *처리하면 끝!
